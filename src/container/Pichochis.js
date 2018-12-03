@@ -11,11 +11,11 @@ class Pichochis extends Component {
         pistas: ['/uno', '/dos', '/tres', '/cuatro', '/cinco'],
         pistasCompletas: [true, false, false, false, false],
         MensajePista: ['Este es el primer mensaje',
-                        'Aqui voy a poner la segunda pista',
-                        'Luego tengo que poner la tercer',
-                        'Ahora vamos a poner la cuarta',
-                        'Por ultimo, ponemos la quinata',
-                        'Este juego fue diseñado para Anette, pero lamentablemente aún no es hora de iniciar. Regresa el despues para que puedas comenzar a jugar.'],
+            'Aqui voy a poner la segunda pista',
+            'Luego tengo que poner la tercer',
+            'Ahora vamos a poner la cuarta',
+            'Por ultimo, ponemos la quinata',
+            'Este juego fue diseñado para Anette, pero lamentablemente aún no es hora de iniciar. Regresa el despues para que puedas comenzar a jugar.'],
     }
     timerEnded = () => {
         console.log('Se termino')
@@ -31,6 +31,10 @@ class Pichochis extends Component {
         }
         this.props.history.push(this.state.pistas[i])
         this.setState({ showError: true });
+    }
+    fileChangedHandler = (event) => {
+        // const file = event.target.files[0]
+        console.log(event.target.files[0])
     }
     render() {
         let error = null
@@ -55,6 +59,7 @@ class Pichochis extends Component {
                     pista={secRestantes > 0 ? this.state.MensajePista[this.state.MensajePista.length - 1] : this.state.MensajePista[pathIndex]}
                     tiempo={secRestantes}
                     myCallback={this.timerEnded}
+                    file={this.fileChangedHandler}
                 />
             </div>
         )

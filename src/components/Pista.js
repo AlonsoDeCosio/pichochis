@@ -4,7 +4,7 @@ import ReactCountdownClock from 'react-countdown-clock'
 
 const pistaUno = (props) => {
     let timer = null
-    if(props.tiempo > 0){
+    if (props.tiempo > 0) {
         timer = (
             <span className={classes.otro}>
                 <ReactCountdownClock seconds={props.tiempo}
@@ -12,8 +12,8 @@ const pistaUno = (props) => {
                     alpha={0.9}
                     size={300}
                     onComplete={props.myCallback}
-                    paused={false} 
-                    showMilliseconds={false}/>
+                    paused={false}
+                    showMilliseconds={false} />
             </span>
         )
     }
@@ -21,6 +21,8 @@ const pistaUno = (props) => {
         <div className={classes.Pista}>
             <p className={classes.info}>{props.pista}</p>
             {timer}
+            <input type="file" onChange={props.file} />
+            <button onClick={this.uploadHandler}>Upload!</button>
         </div>
     )
 };
