@@ -21,8 +21,9 @@ const pistaUno = (props) => {
         <div className={classes.Pista}>
             <p className={classes.info}>{props.pista}</p>
             {timer}
-            <input type="file" onChange={props.file} />
-            <button onClick={this.uploadHandler}>Upload!</button>
+            <input style={{display:'none'}} type="file" onChange={props.file} ref={fileInput => this.fileInput = fileInput}/>
+            <button onClick={() => this.fileInput.click()}>Pick File</button>
+            <button onClick={props.upload}>Upload!</button>
         </div>
     )
 };

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import classes from './Pichochis.css'
 import Pista from '../components/Pista'
 import Modal from '../components/UI/Modal/Modal';
+import axios from 'axios'
 
 
 class Pichochis extends Component {
@@ -16,6 +17,7 @@ class Pichochis extends Component {
             'Ahora vamos a poner la cuarta',
             'Por ultimo, ponemos la quinata',
             'Este juego fue diseñado para Anette, pero lamentablemente aún no es hora de iniciar. Regresa el despues para que puedas comenzar a jugar.'],
+        selectedFile: null
     }
     timerEnded = () => {
         console.log('Se termino')
@@ -35,6 +37,18 @@ class Pichochis extends Component {
     fileChangedHandler = (event) => {
         // const file = event.target.files[0]
         console.log(event.target.files[0])
+        this.setState({ selectedFile: event.target.files[0] })
+    }
+    uploadHandler = () => {
+        const formData = new FormData()
+        formData.append('myFile', this.state.selectedFile, this.state.selectedFile.name)
+        axios.post('my-domain.com/file-upload', formData, {
+            onUploadProgress: progressEvent => {
+                console.log('Upload progress: ' + Math.round((progressEvent.loaded / progressEvent.total) * 100) + '%')
+            }
+        }).then(res => {
+            console.log(res)
+        })
     }
     render() {
         let error = null
@@ -60,6 +74,7 @@ class Pichochis extends Component {
                     tiempo={secRestantes}
                     myCallback={this.timerEnded}
                     file={this.fileChangedHandler}
+                    upload={this.uploadHandler}
                 />
             </div>
         )
