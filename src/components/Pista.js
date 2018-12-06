@@ -1,9 +1,14 @@
 import React from 'react';
 import classes from './Pista.css'
 import ReactCountdownClock from 'react-countdown-clock'
+import back from '../assets/back.png'
+import forward from '../assets/forward.png'
 
 const pistaUno = (props) => {
-    let timer = null
+    var timer = null
+    var controles = null
+    var upload = null
+    var mensaje = props.pista
     if (props.tiempo > 0) {
         timer = (
             <span className={classes.otro}>
@@ -17,13 +22,31 @@ const pistaUno = (props) => {
             </span>
         )
     }
+    if(props.completada){
+        mensaje = "Eta pista ya fue completada. Contuenua a la siguiente pista"
+    }
+    if (props.controls && props.completada !== true) {
+        controles = (
+            <div className={classes.buttons}>
+                <button onClick={props.back} style={{ marginRight: '15px', backgroundColor:'#ffffff', border:'none'}}><img src={back} alt="Back" className={classes.img} /></button>
+                <button onClick={props.forward} style={{ marginLeft: '15px', backgroundColor:'#ffffff', border:'none' }}><img src={forward} alt="Back" className={classes.img} /></button>
+            </div>
+        )
+    }
+    if (props.uploadImg){
+        upload = (
+            <button onClick={() => this.fileInput.click()} style={{margin:"15px"}}>Pick File</button>
+        )
+    }
     return (
         <div className={classes.Pista}>
-            <p className={classes.info}>{props.pista}</p>
+            <h3>Pista {props.numPista + 1}</h3>
+            <p className={classes.info}>{mensaje}</p>
             {timer}
-            <input style={{display:'none'}} type="file" onChange={props.file} ref={fileInput => this.fileInput = fileInput}/>
-            <button onClick={() => this.fileInput.click()}>Pick File</button>
-            <button onClick={props.upload}>Upload!</button>
+            <input style={{ display: 'none' }} type="file" onChange={props.file} ref={fileInput => this.fileInput = fileInput} />
+            {upload}
+            {controles}
+
         </div>
     )
 };
